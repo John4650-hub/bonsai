@@ -97,12 +97,14 @@ public fun <T> Bonsai(
             state = listState,
             modifier = modifier
                 .fillMaxWidth()
+                /*
+                Uncomment if horizontalScrolling is needed
                 .run {
                     if (style.useHorizontalScroll)
                         horizontalScroll(rememberScrollState())
                     else
                         this
-                }
+                }*/
         ) {
             items(tree.nodes, { it.key }) { node ->
                 Node(node)
