@@ -3,11 +3,9 @@ package cafe.adriel.bonsai.core
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -78,9 +76,8 @@ public fun <T> Bonsai(
     onClick: OnNodeClick<T> = tree::onNodeClick,
     onDoubleClick: OnNodeClick<T> = tree::onNodeClick,
     onLongClick: OnNodeClick<T> = tree::toggleSelection,
-    style: BonsaiStyle<T> = BonsaiStyle(),
-    listState: LazyListState = rememberLazyListState(),
-) {
+    style: BonsaiStyle<T> = BonsaiStyle()
+    ){
     val scope = remember(tree) {
         BonsaiScope(
             expandableManager = tree,
@@ -93,20 +90,12 @@ public fun <T> Bonsai(
     }
 
     with(scope) {
-        LazyColumn(
-            state = listState,
+        Column(
             modifier = modifier
                 .fillMaxWidth()
-                /*
-                Uncomment if horizontalScrolling is needed
-                .run {
-                    if (style.useHorizontalScroll)
-                        horizontalScroll(rememberScrollState())
-                    else
-                        this
-                }*/
+                .verticalScroll(rememberScrollState())
         ) {
-            items(tree.nodes, { it.key }) { node ->
+            tree.nodes.forEach { node ->
                 Node(node)
             }
         }
