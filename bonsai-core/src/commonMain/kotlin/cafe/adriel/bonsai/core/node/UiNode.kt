@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
+import androidx.compose.ui.text.style.TextOverflow
 import cafe.adriel.bonsai.core.BonsaiScope
 
 @Composable
@@ -126,6 +127,8 @@ internal fun <T> BonsaiScope<T>.DefaultNodeName(node: Node<T>) {
     BasicText(
         text = node.name,
         style = style.nodeNameTextStyle,
+        maxLines=2,
+        overflow=TextOverflow.Ellipsis,
         modifier = Modifier.padding(start = style.nodeNameStartPadding)
     )
 }
